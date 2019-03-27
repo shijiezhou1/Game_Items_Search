@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Game Item</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Search Game Items</h1>
+      <div class="row">
+        <input
+          type="text"
+          name="search"
+          id="searchKey"
+          placeholder="Search Item Database"
+          class="form-control col-8"
+        />
+        <button class="btn btn-primary" onclick="findKey();">Search now</button>
+      </div>
+
+      <div>
+        <h4>Items:</h4>
+        <li class="list-group">
+          <div id="replaceList"></div>
+        </li>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function findKey() {
+      var jsonUrl =
+        'https://raw.githubusercontent.com/Naksta/conanexilesdb/master/data.json';
+      $.ajax({ url: jsonUrl }).done(function(data) {
+        searchRun(
+          document.getElementById('searchKey').value.trim(),
+          JSON.parse(data)
+        );
+      });
+    }
+
+    function searchRun(key, obj) {
+      var searchVal = key;
+      var newRegExp = new RegExp(searchVal, 'i');
+      var reg = /searchVal/i;
+      var results = obj.filter(item => newRegExp.test(item.Name));
+      genTemArr(results);
+    }
+
+    function genTemArr(arr) {
+      var tem = `<div id="replaceList">`;
+      for (var ar of arr) {
+        tem += `<li class="list-group-item link-class">
+        <img src="${ar.Icon}" height="40" width="40" class="img-thumbnail"> ${
+          ar.Name
+        } | 
+        <span class="text-muted">${ar.ShortDesc}</span>
+        </li>`;
+      }
+      tem += `</div>`;
+      $('#replaceList').replaceWith(tem);
+    }
+  </script>
+</html>
