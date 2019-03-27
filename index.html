@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript that create game items search" />
+    <meta
+      name="keywords"
+      content="HTML,CSS,XML,JavaScript that create game items search"
+    />
     <meta name="author" content="Jay Zhou" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,6 +27,7 @@
   <body>
     <div class="container">
       <h1>Search Game Items</h1>
+      <div> eg. sword, smith</div>
       <div class="row">
         <input
           type="text"
@@ -32,11 +36,11 @@
           placeholder="Search Item Database"
           class="form-control col-8"
         />
-        <button class="btn btn-primary" onclick="findKey();">Search now</button>
+        <button class="btn btn-primary findkeybtn" onclick="findKey();">Search now</button>
       </div>
 
       <div>
-        <h4>Items results: </h4>
+        <h4>Items results:</h4>
         <li class="list-group">
           <div id="replaceList"></div>
         </li>
@@ -45,6 +49,13 @@
   </body>
 
   <script>
+    $('input').on('keypress',function(e){
+    var key = (e.keyCode || e.which);
+        if(key == 13 || key == 3){
+          findKey();
+          return false;
+        }
+    });
     function findKey() {
       var jsonUrl =
         'https://raw.githubusercontent.com/Naksta/conanexilesdb/master/data.json';
