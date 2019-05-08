@@ -76,10 +76,12 @@
     }
 
     function genTemArr(arr) {
+      var realLink = "https://raw.githubusercontent.com/Naksta/conanexilesdb/master/";
       var tem = `<div id="replaceList">`;
       for (var ar of arr) {
+        var realLink2 = ar.Icon.substr(2);
         tem += `<li class="list-group-item link-class">
-        <img src="${ar.Icon}" height="40" width="40" class="img-thumbnail"> ${
+        <img src="${realLink}${realLink2}" height="40" width="40" class="img-thumbnail"> ${
           ar.Name
         } | 
         <span class="text-muted">${ar.ShortDesc}</span>
